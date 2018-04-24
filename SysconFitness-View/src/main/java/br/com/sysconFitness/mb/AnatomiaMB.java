@@ -21,7 +21,9 @@ public class AnatomiaMB extends SpringBeanAutowiringSupport {
 
 	private Anatomia bean;
 	private Anatomia alterarBean;
-	private List<Anatomia> ListaBean;
+	private List<Anatomia> listaBean;
+	private List<Anatomia> listaBeanPorCliente;
+	private Integer cliente_id=0;
 	private Date hoje = new Date();
 	
 	//teste de commite
@@ -33,18 +35,20 @@ public class AnatomiaMB extends SpringBeanAutowiringSupport {
 	@PostConstruct
 	public void init() {
 		this.bean = new Anatomia();	
-		this.ListaBean = controle.select();
+		this.listaBean = controle.select();
 		this.lableCliente = "Selecione ";
+		
 	}
 	
 	public void cadastrar() {
-		this.bean.setDataColeta(hoje);
+		this.bean.setDataColeta(this.hoje);
 		this.controle.insert(this.bean);
 		this.init();
 	}
 	
 	public void cancelar(){
 		this.init();
+		this.listaBeanPorCliente.clear();
 		FacesContext context = 
 				FacesContext.getCurrentInstance();
                 context.addMessage(null,
@@ -53,13 +57,12 @@ public class AnatomiaMB extends SpringBeanAutowiringSupport {
 	}
 	
 	public void excluir(){
-		this.controle.delete(this.bean);
 		this.init();
 		FacesContext context = 
 				FacesContext.getCurrentInstance();
         context.addMessage(null,
         		new FacesMessage("SysconFitness - Aviso",  
-        				"Registro Excluído!!!" ) );
+        				"Registro Excluï¿½do!!!" ) );
 	}
 	
 	public void preparaUpdate(){
@@ -68,6 +71,7 @@ public class AnatomiaMB extends SpringBeanAutowiringSupport {
 	
 	public void mostrarSelecaoCliente() {
 		this.lableCliente = this.bean.getCliente().getNome();
+		this.listaBeanPorCliente = controle.findByCliente_id(this.bean.getCliente().getId());	
 	}
 	
 	//	Metodos Gets e Sets	
@@ -88,11 +92,11 @@ public class AnatomiaMB extends SpringBeanAutowiringSupport {
 	}
 
 	public List<Anatomia> getListaBean() {
-		return ListaBean;
+		return listaBean;
 	}
 
 	public void setListaBean(List<Anatomia> listaBean) {
-		ListaBean = listaBean;
+		this.listaBean = listaBean;
 	}
 
 	public Date getHoje() {
@@ -109,5 +113,21 @@ public class AnatomiaMB extends SpringBeanAutowiringSupport {
 
 	public void setLableCliente(String lableCliente) {
 		this.lableCliente = lableCliente;
+	}
+
+	public List<Anatomia> getListaBeanPorCliente() {
+		return listaBeanPorCliente;
+	}
+
+	public void setListaBeanPorCliente(List<Anatomia> listaBeanPorCliente) {
+		this.listaBeanPorCliente = listaBeanPorCliente;
+	}
+
+	public Integer getCliente_id() {
+		return cliente_id;
+	}
+
+	public void setCliente_id(Integer cliente_id) {
+		this.cliente_id = cliente_id;
 	}
 }

@@ -10,5 +10,6 @@ public interface AnatomiaBCI {
 	public void update(Anatomia medidaAcompanhamento);
 	public void delete(Anatomia medidaAcompanhamento);
 	public List<Anatomia> select();
+	public List<Anatomia> findByCliente_id(Integer id_cliente);
 	
 }

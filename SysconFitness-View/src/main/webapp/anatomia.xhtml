@@ -58,10 +58,10 @@
 						<p:commandButton value="Voltar" action="/index.jsp" />
 					</p:panelGrid>
 
-					<p:dataTable var="v" value="#{AnatomiaMB.listaBean}" selectionMode="single" selection="#{AnatomiaMB.alterarBean}" rowKey="#{v.id}">
+					<p:dataTable id="tabelaAnatomia" var="v" value="#{AnatomiaMB.listaBeanPorCliente}" selectionMode="single" selection="#{AnatomiaMB.alterarBean}" rowKey="#{v.id}">
 						<p:ajax event="rowSelect" listener="#{AnatomiaMB.preparaUpdate}" update="formAnatomia" />
 						<p:column style="width:5px" headerText="ID">#{v.id}</p:column>
-						<p:column style="width:10px" headerText="ID Cliente">#{v.id}</p:column>
+						<p:column style="width:10px" headerText="ID Cliente">#{v.cliente.nome}</p:column>
 						<p:column style="width:5px" headerText="Altura">#{v.altura}</p:column>
 						<p:column style="width:5px" headerText="Peso">#{v.peso}</p:column>
 						<p:column style="width:5px" headerText="Coxa">#{v.coxa}</p:column>
@@ -104,9 +104,10 @@
 	
 							<f:facet name="footer">
 								<p:commandButton process="id_tabelaCliente"
-									update=":formAnatomia:id_cliente" value="Confirmar"
+									update=":formAnatomia" value="Confirmar"
 									onclick="PF('tabelaCliente').hide()"
-									action="#{AnatomiaMB.mostrarSelecaoCliente}" />
+									action="#{AnatomiaMB.mostrarSelecaoCliente}" 
+									/>
 							</f:facet>
 						</p:dataTable>
 					</p:dialog>

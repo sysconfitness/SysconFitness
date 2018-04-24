@@ -34,4 +34,10 @@ public class AnatomiaBC implements AnatomiaBCI{
 	public List<Anatomia> select() {
 		return dao.findAll();
 	}
+
+	@Override
+	public List<Anatomia> findByCliente_id(Integer id_cliente) {
+		
+		return dao.findByCliente_id(id_cliente);
+	}
 }
