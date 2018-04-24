@@ -19,34 +19,34 @@
 					<p:panelGrid columns="10">
 					
 
-						<p:outputLabel value="Cliente :"/>
+						<p:outputLabel value="Cliente"/>
 						<p:commandButton value="#{AnatomiaMB.lableCliente}" id="id_cliente" type="button" onclick="PF('tabelaCliente').show();" />
 						
-						<p:outputLabel value="Altura : " />
+						<p:outputLabel value="Altura" />
 						<p:inputText value="#{AnatomiaMB.bean.altura}" size="8"/>
 						
-						<p:outputLabel value="Peso : " />
+						<p:outputLabel value="Peso" />
 						<p:inputText value="#{AnatomiaMB.bean.peso}" size="8"/>
 						
-						<p:outputLabel value="Coxa : " />
+						<p:outputLabel value="Coxa" />
 						<p:inputText value="#{AnatomiaMB.bean.coxa}" size="8"/>
 						
-						<p:outputLabel value="Panturrilha : " />
+						<p:outputLabel value="Panturrilha" />
 						<p:inputText value="#{AnatomiaMB.bean.panturrilha}" size="8"/>
 						
-						<p:outputLabel value="Peitoral : " />
+						<p:outputLabel value="Peitoral" />
 						<p:inputText value="#{AnatomiaMB.bean.peitoral}" size="8"/>
 						
-						<p:outputLabel value="Cintura : " />
+						<p:outputLabel value="Cintura" />
 						<p:inputText value="#{AnatomiaMB.bean.cintura}" size="8"/>
 						
-						<p:outputLabel value="Quadril : " />
+						<p:outputLabel value="Quadril" />
 						<p:inputText value="#{AnatomiaMB.bean.quadril}" size="8"/>
 						
-						<p:outputLabel value="Braço : " />
+						<p:outputLabel value="Braço" />
 						<p:inputText value="#{AnatomiaMB.bean.braco}" size="8"/>						
 
-						<p:outputLabel value="Antebraço : " />
+						<p:outputLabel value="Antebraço" />
 						<p:inputText value="#{AnatomiaMB.bean.antebraco}" size="8"/>
 												
 					</p:panelGrid>
@@ -60,23 +60,23 @@
 
 					<p:dataTable id="tabelaAnatomia" var="v" value="#{AnatomiaMB.listaBeanPorCliente}" selectionMode="single" selection="#{AnatomiaMB.alterarBean}" rowKey="#{v.id}">
 						<p:ajax event="rowSelect" listener="#{AnatomiaMB.preparaUpdate}" update="formAnatomia" />
-						<p:column style="width:5px" headerText="ID">#{v.id}</p:column>
-						<p:column style="width:10px" headerText="ID Cliente">#{v.cliente.nome}</p:column>
-						<p:column style="width:5px" headerText="Altura">#{v.altura}</p:column>
-						<p:column style="width:5px" headerText="Peso">#{v.peso}</p:column>
-						<p:column style="width:5px" headerText="Coxa">#{v.coxa}</p:column>
-						<p:column style="width:5px" headerText="Panturrilha">#{v.panturrilha}</p:column>
-						<p:column style="width:5px" headerText="Peitoral">#{v.peitoral}</p:column>
-						<p:column style="width:5px" headerText="Cintura">#{v.cintura}</p:column>
-						<p:column style="width:5px" headerText="Quadril">#{v.quadril}</p:column>
-						<p:column style="width:5px" headerText="Braço">#{v.braco}</p:column>
-						<p:column style="width:5px" headerText="Antebraço">#{v.antebraco}</p:column>
+						<p:column style="width:50px" headerText="Cliente">#{v.cliente.nome}</p:column>
+						<p:column style="width:10px" headerText="Data Coleta">#{v.dataColeta}</p:column>
+						<p:column style="width:3px" headerText="Altura">#{v.altura}</p:column>
+						<p:column style="width:3px" headerText="Peso">#{v.peso}</p:column>
+						<p:column style="width:3px" headerText="Coxa">#{v.coxa}</p:column>
+						<p:column style="width:3px" headerText="Panturrilha">#{v.panturrilha}</p:column>
+						<p:column style="width:3px" headerText="Peitoral">#{v.peitoral}</p:column>
+						<p:column style="width:3px" headerText="Cintura">#{v.cintura}</p:column>
+						<p:column style="width:3px" headerText="Quadril">#{v.quadril}</p:column>
+						<p:column style="width:3px" headerText="Braço">#{v.braco}</p:column>
+						<p:column style="width:3px" headerText="Antebraço">#{v.antebraco}</p:column>
 					</p:dataTable>
 
 					<!-- Caixas de Dialog -->
 					<p:dialog header="Lista de Clientes" widgetVar="tabelaCliente" modal="true" width="800">			
 						<h:panelGrid columns="2" layout="grid">
-							<p:outputLabel value="Nome :" />		
+							<p:outputLabel value="Nome" />		
 							<p:inputText value="#{ClienteMB.bean.nome}"/>
 						</h:panelGrid>	
 								
