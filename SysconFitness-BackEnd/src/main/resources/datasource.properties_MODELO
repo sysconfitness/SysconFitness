@@ -1,5 +1,5 @@
-username=postgress
-password=postgress
+username=postgre
+password=postgres
 url=jdbc:postgresql://localhost:5432/SysconFitness
 driverClassName=org.postgresql.Driver
 dialect=org.hibernate.dialect.PostgreSQLDialect
