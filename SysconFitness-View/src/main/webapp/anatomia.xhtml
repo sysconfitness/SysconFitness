@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head></h:head>
+
+<h:body>
+	<ui:composition template="template/template.xhtml">
+		<ui:define name="content">
+			<h:form id="formAnatomia">
+
+				<p:panel header="Cadastro de Medidas Anatômicas">
+					<p:growl id="growl" showDetail="true" sticky="false" life="5000" />
+
+					<p:panelGrid columns="10">
+
+						<p:outputLabel value="Cliente :"/>
+						<p:commandButton value="#{AnatomiaMB.lableCliente}" id="id_cliente" type="button" onclick="PF('tabelaCliente').show();" />
+						
+						<p:outputLabel value="Altura : " />
+						<p:inputText value="#{AnatomiaMB.bean.altura}" size="8"/>
+						
+						<p:outputLabel value="Peso : " />
+						<p:inputText value="#{AnatomiaMB.bean.peso}" size="8"/>
+						
+						<p:outputLabel value="Coxa : " />
+						<p:inputText value="#{AnatomiaMB.bean.coxa}" size="8"/>
+						
+						<p:outputLabel value="Panturrilha : " />
+						<p:inputText value="#{AnatomiaMB.bean.panturrilha}" size="8"/>
+						
+						<p:outputLabel value="Peitoral : " />
+						<p:inputText value="#{AnatomiaMB.bean.peitoral}" size="8"/>
+						
+						<p:outputLabel value="Cintura : " />
+						<p:inputText value="#{AnatomiaMB.bean.cintura}" size="8"/>
+						
+						<p:outputLabel value="Quadril : " />
+						<p:inputText value="#{AnatomiaMB.bean.quadril}" size="8"/>
+						
+						<p:outputLabel value="Braço : " />
+						<p:inputText value="#{AnatomiaMB.bean.braco}" size="8"/>						
+
+						<p:outputLabel value="Antebraço : " />
+						<p:inputText value="#{AnatomiaMB.bean.antebraco}" size="8"/>
+												
+					</p:panelGrid>
+
+					<p:panelGrid columns="4">
+						<p:commandButton value="Salvar" action="#{AnatomiaMB.cadastrar}" update="formAnatomia" />
+						<p:commandButton value="Cancelar" action="#{AnatomiaMB.cancelar}" update="formAnatomia" />
+						<p:commandButton value="Excluir" action="#{AnatomiaMB.excluir}" update="formAnatomia" />
+						<p:commandButton value="Voltar" action="/index.jsp" />
+					</p:panelGrid>
+
+					<p:dataTable var="v" value="#{AnatomiaMB.listaBean}" selectionMode="single" selection="#{AnatomiaMB.alterarBean}" rowKey="#{v.id}">
+						<p:ajax event="rowSelect" listener="#{AnatomiaMB.preparaUpdate}" update="formAnatomia" />
+						<p:column style="width:5px" headerText="ID">#{v.id}</p:column>
+						<p:column style="width:10px" headerText="ID Cliente">#{v.id}</p:column>
+						<p:column style="width:5px" headerText="Altura">#{v.altura}</p:column>
+						<p:column style="width:5px" headerText="Peso">#{v.peso}</p:column>
+						<p:column style="width:5px" headerText="Coxa">#{v.coxa}</p:column>
+						<p:column style="width:5px" headerText="Panturrilha">#{v.panturrilha}</p:column>
+						<p:column style="width:5px" headerText="Peitoral">#{v.peitoral}</p:column>
+						<p:column style="width:5px" headerText="Cintura">#{v.cintura}</p:column>
+						<p:column style="width:5px" headerText="Quadril">#{v.quadril}</p:column>
+						<p:column style="width:5px" headerText="Braço">#{v.braco}</p:column>
+						<p:column style="width:5px" headerText="Antebraço">#{v.antebraco}</p:column>
+					</p:dataTable>
+
+					<!-- Caixas de Dialog -->
+					<p:dialog header="Lista de Clientes" widgetVar="tabelaCliente" modal="true" width="800">			
+						<h:panelGrid columns="2" layout="grid">
+							<p:outputLabel value="Nome :" />		
+							<p:inputText value="#{ClienteMB.bean.nome}"/>
+						</h:panelGrid>	
+								
+						<h:panelGrid columns="4" layout="grid">
+							<p:commandButton value="Savar" action="#{ClienteMB.cadastrar}" update="id_tabelaCliente" />
+							<p:commandButton value="Cancelar" action="#{ClienteMB.cancelar}" update="id_tabelaCliente" />
+						</h:panelGrid>
+	
+						<p:dataTable id="id_tabelaCliente" var="cliente"
+							value="#{ClienteMB.listaBean}"
+							selection="#{AnatomiaMB.bean.cliente}"
+							rowKey="#{cliente.id}"
+							emptyMessage="Nenhum Cliente foi cadastrado.">
+								
+							<f:facet name="header">Selecione um Cliente :</f:facet>
+							<p:column selectionMode="single"
+								style="width:16px;text-align:center" />
+	
+							<p:column headerText="Id">
+								<h:outputText value="#{cliente.id}" />
+							</p:column>
+							<p:column headerText="Nome">
+								<h:outputText value="#{cliente.nome}" />
+							</p:column>
+	
+							<f:facet name="footer">
+								<p:commandButton process="id_tabelaCliente"
+									update=":formBairro:id_cliente" value="Confirmar"
+									onclick="PF('tabelaCliente').hide()"
+									action="#{AnatomiaMB.mostrarSelecaoCliente}" />
+							</f:facet>
+						</p:dataTable>
+					</p:dialog>
+				
+				</p:panel>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui" template="template/template.xhtml">
+
+	<ui:define name="content">
+		<h:form id="formPlano">
+	
+			<p:growl id="growl" showDetail="true" sticky="false" life="5000" />
+	
+			<p:panel header="Cadastro de Planos da Academia">
+			
+				<p:panelGrid columns="4">
+							
+					<p:outputLabel value="Nome :" />
+					<p:inputText value="#{PlanoMB.bean.nome}" size="30" />
+
+					<p:outputLabel for="german" value="Data Início : " />
+					<p:calendar id="german" value="#{PlanoMB.bean.dataInicio}" navigator="true" pattern="dd/MM/yyyy" yearRange="c-10:c+0" />
+
+					<p:outputLabel for="german" value="Data Fim :" />
+					<p:calendar id="german2" value="#{PlanoMB.bean.dataFim}" navigator="true" pattern="dd/MM/yyyy" yearRange="c-10:c+0" />
+					
+					<p:outputLabel value="Valor :" />
+					<p:inputNumber value="#{PlanoMB.bean.valor}" size="30" />
+								 		
+				</p:panelGrid>
+				
+				<p:panelGrid columns="4">
+					<p:commandButton value="Savar" action="#{PlanoMB.cadastrar}" update="formPlano" />
+					<p:commandButton value="Cancelar" action="#{PlanoMB.cancelar}" update="formPlano" />
+					<p:commandButton value="Excluir" action="#{PlanoMB.excluir}" update="formPlano" />
+					<p:commandButton value="Voltar" action="/index.jsp"/>
+				</p:panelGrid>
+				
+				<p:dataTable var="v" value="#{PlanoMB.listaBean}" selectionMode="single" selection="#{PlanoMB.alterarBean}" rowKey="#{v.id}">
+					<p:ajax event="rowSelect"	listener="#{PlanoMB.preparaUpdate}"	update="formPlano" />
+					<p:column style="width:20px" headerText="ID">#{v.id}</p:column>
+					<p:column style="width:50px" headerText="Nome">#{v.nome}</p:column>
+					<p:column style="width:20px" headerText="Data Início">#{v.dataInicio}</p:column>
+					<p:column style="width:20px" headerText="Data Fim">#{v.dataFim}</p:column>
+					<p:column style="width:10px" headerText="valor">#{v.valor}</p:column>
+				</p:dataTable>	
+				
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:decorate>

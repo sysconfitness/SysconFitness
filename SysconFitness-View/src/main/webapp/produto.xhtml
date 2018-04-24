@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui" template="template/template.xhtml">
+
+	<ui:define name="content">
+		<h:form id="formProduto">
+	
+			<p:growl id="growl" showDetail="true" sticky="false" life="5000" />
+	
+			<p:panel header="Cadastro de Produtos">
+			
+				<p:panelGrid columns="2">
+							
+					<p:outputLabel value="Nome :" />
+					<p:inputText value="#{ProdutoMB.bean.nome}" size="30" />
+	
+					<p:outputLabel value="Estoque :" />
+					<p:inputText value="#{ProdutoMB.bean.estoque}" size="30" />
+					
+					<p:outputLabel value="Preço :" />
+					<p:inputNumber value="#{ProdutoMB.bean.preco}" size="30" />
+
+	        		<p:outputLabel value="Unidade :" />
+					<p:selectOneMenu value="#{ProdutoMB.bean.unidade}">
+						<f:selectItem itemLabel="Unidade " itemValue="UN" />
+						<f:selectItem itemLabel="Kilograma " itemValue="KG" />
+						<f:selectItem itemLabel="Metro " itemValue="MT" />
+						<f:selectItem itemLabel="Litro " itemValue="LT" />
+						<f:selectItem itemLabel="Sachê " itemValue="SC" />
+						<f:selectItem itemLabel="Dúzia " itemValue="DZ" />
+					</p:selectOneMenu>
+								 		
+				</p:panelGrid>
+				
+				<p:panelGrid columns="4">
+					<p:commandButton value="Savar" action="#{ProdutoMB.cadastrar}" update="formProduto" />
+					<p:commandButton value="Cancelar" action="#{ProdutoMB.cancelar}" update="formProduto" />
+					<p:commandButton value="Excluir" action="#{ProdutoMB.excluir}" update="formProduto" />
+					<p:commandButton value="Voltar" action="/index.jsp"/>
+				</p:panelGrid>
+				
+				<p:dataTable var="v" value="#{ProdutoMB.listaBean}" selectionMode="single" selection="#{ProdutoMB.alterarBean}" rowKey="#{v.id}">
+					<p:ajax event="rowSelect"	listener="#{ProdutoMB.preparaUpdate}"	update="formProduto" />
+					<p:column style="width:20px" headerText="ID">#{v.id}</p:column>
+					<p:column style="width:50px" headerText="Nome">#{v.nome}</p:column>
+					<p:column style="width:50px" headerText="Estoque">#{v.estoque}</p:column>
+					<p:column style="width:50px" headerText="Preço">#{v.preco}</p:column>
+					<p:column style="width:10px" headerText="Unidade">#{v.unidade}</p:column>
+				</p:dataTable>	
+				
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:decorate>

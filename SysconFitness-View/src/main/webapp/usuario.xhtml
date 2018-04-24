@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui" template="template/template.xhtml">
+
+	<ui:define name="content">
+
+		<h:form id="cad_usuario">
+			<p:panel header="Cadastro de Usuario">
+			
+				<p:messages id="messages" showDetail="true" autoUpdate="true" />
+				
+				<p:panelGrid columns="2">
+
+					<p:outputLabel value="Nome de Usuario :" />
+					<p:inputText value="#{UsuarioMB.bean.login}" />
+
+					<p:outputLabel value="senha" />
+					<p:password id="senha1" value="#{UsuarioMB.bean.senha}" match="senha2" label="Senha" required="false" />
+					
+					<p:outputLabel value="Confirma a senha" />
+					<p:password id="senha2" value="#{UsuarioMB.bean.senha}" label="Confirma senha" required="false" />
+					
+					<p:outputLabel value="Ativo" />
+					<p:selectBooleanCheckbox value="#{UsuarioMB.bean.ativo}" />
+					
+				</p:panelGrid>
+				
+				<p:panelGrid columns="3">
+					<p:commandButton value="Cadastrar" action="#{UsuarioMB.cadastrar}" update="cad_usuario" />
+					<p:commandButton value="Cancelar" action="#{UsuarioMB.cancelar}" update="cad_usuario" />
+					<p:commandButton value="Voltar" action="/index.jsp"/>
+				</p:panelGrid>
+		
+				<p:dataTable var="v" value="#{UsuarioMB.listaBean}">
+					<p:column headerText="ID">#{v.id}</p:column>
+					<p:column headerText="Usuário">#{v.login}</p:column>
+					<p:column headerText="Ativo" >#{v.ativo}</p:column >
+				</p:dataTable>
+				
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:decorate>

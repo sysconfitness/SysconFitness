@@ -1,0 +1,6 @@
+username=postgress
+password=postgress
+url=jdbc:postgresql://localhost:5432/SysconFitness
+driverClassName=org.postgresql.Driver
+dialect=org.hibernate.dialect.PostgreSQLDialect
+showSql=true

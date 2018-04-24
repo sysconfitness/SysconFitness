@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui" template="template/template.xhtml">
+
+	<ui:define name="content">
+		<h:form id="formCliente">
+	
+			<p:growl id="growl" showDetail="true" sticky="false" life="5000" />
+	
+			<p:panel header="Cadastro de Clientes">
+			
+				<p:panelGrid columns="6">
+					
+					<p:outputLabel value="Nome :" />		
+					<p:inputText value="#{ClienteMB.bean.nome}" size="30"/>
+					
+					<p:outputLabel value="CPF :" />
+					<p:inputMask id="cpf" value="#{ClienteMB.bean.cpf}" size="11" mask="999.999.999-99"/>
+					
+					<p:outputLabel value="RG :" />
+					<p:inputText value="#{ClienteMB.bean.rg}" />
+					
+	        		<p:outputLabel value="Sexo :" />
+					<p:selectOneMenu value="#{ClienteMB.bean.sexo}">
+						<f:selectItem itemLabel="Masculino " itemValue="M" />
+						<f:selectItem itemLabel="Feminino " itemValue="F" />
+					</p:selectOneMenu>
+					
+					<p:outputLabel for="german" value="Nascimento :" />
+					<p:calendar id="german" value="#{ClienteMB.bean.dataNascimento}" navigator="true" pattern="dd/MM/yyyy" yearRange="c-100:c+0" />
+					
+					<p:outputLabel value="Telefone Fixo :" />
+        			<p:inputMask id="phone" value="#{ClienteMB.bean.telefone1}" size="11" mask="(99) 9999-9999"/>
+
+					<p:outputLabel value="Telefone Celular :" />
+					<p:inputMask id="phone2" value="#{ClienteMB.bean.telefone2}" size="11" mask="(99) 99999-9999"/>
+					
+					<p:outputLabel value="E-Mail :" />
+					<p:inputText value="#{ClienteMB.bean.email}" />
+					
+					<p:outputLabel value="Endereço :" />
+					<p:inputText value="#{ClienteMB.bean.endereco}" />
+					
+					<p:outputLabel value="Bairro :" />
+					<p:commandButton value="#{ClienteMB.lableBairro}" id="id_bairro" type="button" 
+															onclick="PF('tabelaBairro').show();" />
+					
+					<p:outputLabel value="CEP :" />
+					<p:inputMask id="cep" value="#{ClienteMB.bean.cep}" size="10" mask="99.999-999"/>
+					
+					<p:outputLabel value="Cidade :" />
+					<p:commandButton value="#{ClienteMB.lableCidade}" id="id_cidade" type="button" 
+															onclick="PF('tabelaCidade').show();" />
+
+					<p:outputLabel value="Unidade Federativa :" />
+					<p:commandButton value="#{ClienteMB.lableUf}" id="id_uf" type="button" 
+															onclick="PF('tabelaUf').show();" />
+																				
+					<p:outputLabel value="Ativo :" />
+					<p:selectBooleanButton value="#{ClienteMB.bean.ativo}" onLabel="Sim" offLabel="Não"/>
+					
+					<p:outputLabel value="Dia Vcto :" />
+					<p:inputText value="#{ClienteMB.bean.vencimento}" size="5"/>
+					
+					<p:outputLabel value="Indicação :" />
+					<p:commandButton value="#{ClienteMB.lableIndicacao}" id="id_indicacao" type="button" 
+															onclick="PF('tabelaIndicacao').show();" />
+					
+					<p:outputLabel value="Visitante :" />
+					<p:selectBooleanButton value="#{ClienteMB.bean.visitante}" onLabel="Sim" offLabel="Não"/>
+					
+					<p:outputLabel value="Usuário :" />
+					<p:inputText value="#{ClienteMB.bean.usuario}" />
+					
+					<p:outputLabel value="Plano :" />
+					<p:inputText value="#{ClienteMB.bean.plano}" />
+					
+					<p:outputLabel value="Medidas :" />
+					<!-- <p:inputText value="#{ClienteMB.bean.listaMedidas}" /> -->
+								 		
+				</p:panelGrid>
+				
+				<p:panelGrid columns="4">
+					<p:commandButton value="Savar" action="#{ClienteMB.cadastrar}" update="formCliente" />
+					<p:commandButton value="Cancelar" action="#{ClienteMB.cancelar}" update="formCliente" />
+					<p:commandButton value="Excluir" action="#{ClienteMB.excluir}" update="formCliente" />
+					<p:commandButton value="Voltar" action="/index.jsp"/>
+				</p:panelGrid>
+				
+				<p:dataTable var="v" value="#{ClienteMB.listaBean}" selectionMode="single" selection="#{ClienteMB.alterarBean}" rowKey="#{v.id}">
+					<p:ajax event="rowSelect" listener="#{ClienteMB.preparaUpdate}" update="formCliente" />
+					
+					<!-- 
+					
+					UILTON
+					UILTON
+					UILTON
+					UILTON
+					UILTON
+					UILTON
+					UILTON
+					UILTON
+					UILTON
+					UILTON
+					UILTON
+					
+					AQUI PRECISA ATUALIZAR AS LABELS DE BAIRRO / CIDADE / UF - CONFORME INFORMAÇÕES DO BANCO DE DADOS
+					
+					QUANDO O USUARIO CLICA NA LISTA É ATUALIZADO APENAS A INPUTTEXT - AS LABELS NÃO ATUALIZAM
+					
+					AGORA QUE A PORCAR TORCE O RABO - VC VAI TER QUE ATUALIZAR A LABEL, CONFORME UMA FORENKEY CUJA DESCRIÇÃO ESTÁ EM OUTRA TABELA
+					
+					TÔÔÔÔÔÔMA!!!!
+					
+					NÃO CONSEGUI ENTENDER COMO FAZER ISSO - DEIXEI PARA DEPOIS E CONTINUEI COM O QUE EU ESTAVA FAZENDO
+					
+				-->		
+					<p:column style="width:20px" headerText="ID">#{v.id}</p:column>
+					<p:column style="width:5px" headerText="ID">#{v.id}</p:column>
+					<p:column style="width:50px" headerText="Nome">#{v.nome}</p:column>
+					<p:column style="width:20px" headerText="CPF">#{v.cpf}</p:column>
+					<p:column style="width:20px" headerText="Nro Celular">#{v.telefone2}</p:column>
+					
+				</p:dataTable>	
+				
+				<!-- Caixas de Dialog -->
+					
+				<p:dialog header="Lista de Bairros" widgetVar="tabelaBairro" modal="true" width="800">			
+					<h:panelGrid columns="2" layout="grid">
+						<p:outputLabel value="Nome :" />		
+						<p:inputText value="#{BairroMB.bean.nome}"/>
+					</h:panelGrid>	
+							
+					<h:panelGrid columns="4" layout="grid">
+							<p:commandButton value="Savar" action="#{BairroMB.cadastrar}" update="id_tabelaBairro" />
+							<p:commandButton value="Cancelar" action="#{BairroMB.cancelar}" update="id_tabelaBairro" />
+					</h:panelGrid>
+
+					<p:dataTable id="id_tabelaBairro" var="bairro"
+						value="#{BairroMB.listaBean}"
+						selection="#{ClienteMB.bean.bairro}"
+						rowKey="#{bairro.id}"
+						emptyMessage="Nenhuma Bairro foi cadastrado.">
+							
+						<f:facet name="header">Selecione um Bairro :</f:facet>
+						<p:column selectionMode="single"
+							style="width:16px;text-align:center" />
+
+						<p:column headerText="Id">
+							<h:outputText value="#{bairro.id}" />
+						</p:column>
+						<p:column headerText="Nome">
+							<h:outputText value="#{bairro.nome}" />
+						</p:column>
+
+						<f:facet name="footer">
+							<p:commandButton process="id_tabelaBairro"
+								update=":formCliente:id_bairro" value="Confirmar"
+								onclick="PF('tabelaBairro').hide()"
+								action="#{ClienteMB.mostrarSelecaoBairro}" />
+						</f:facet>
+					</p:dataTable>
+				</p:dialog>
+					
+				<p:dialog header="Cidades" widgetVar="tabelaCidade" modal="true" width="800">			
+					<h:panelGrid columns="2" layout="grid">
+						<p:outputLabel value="Nome :" />		
+						<p:inputText value="#{CidadeMB.bean.nome}"/>
+					</h:panelGrid>	
+							
+					<h:panelGrid columns="4" layout="grid">
+						<p:commandButton value="Savar" action="#{CidadeMB.cadastrar}" update="id_tabelaCidade" />
+						<p:commandButton value="Cancelar" action="#{CidadeMB.cancelar}" update="id_tabelaCidade" />
+					</h:panelGrid>
+
+					<p:dataTable id="id_tabelaCidade" var="cidade"
+						value="#{CidadeMB.listaBean}"
+						selection="#{ClienteMB.bean.cidade}"
+						rowKey="#{cidade.id}"
+						emptyMessage="Nenhuma Cidade foi cadastrado.">
+							
+						<f:facet name="header">Selecione uma Cidade :</f:facet>
+						<p:column selectionMode="single"
+							style="width:16px;text-align:center" />
+							<p:column headerText="Id">
+								<h:outputText value="#{cidade.id}" />
+							</p:column>
+							
+							<p:column headerText="Nome">
+								<h:outputText value="#{cidade.nome}" />
+							</p:column>
+
+							<f:facet name="footer">
+								<p:commandButton process="id_tabelaCidade"
+									update=":formCliente:id_cidade" value="Confirmar"
+									onclick="PF('tabelaCidade').hide()"
+									action="#{ClienteMB.mostrarSelecaoCidade}"/>
+							</f:facet>
+					</p:dataTable>
+				</p:dialog>	
+
+				<p:dialog header="Unidade Federativa - UF" widgetVar="tabelaUf" modal="true" width="800">			
+					<h:panelGrid columns="2" layout="grid">
+						<p:outputLabel value="UF :" />		
+						<p:inputText value="#{UfMB.bean.prefixo}"/>
+						<p:outputLabel value="Estado :" />		
+						<p:inputText value="#{UfMB.bean.nome}"/>
+						
+						
+					</h:panelGrid>	
+							
+					<h:panelGrid columns="4" layout="grid">
+						<p:commandButton value="Savar" action="#{UfMB.cadastrar}" update="id_tabelaUf" />
+						<p:commandButton value="Cancelar" action="#{UfMB.cancelar}" update="id_tabelaUf" />
+					</h:panelGrid>
+
+					<p:dataTable id="id_tabelaUf" var="uf"
+						value="#{UfMB.listaBean}"
+						selection="#{ClienteMB.bean.uf}"
+						rowKey="#{uf.id}"
+						emptyMessage="Nenhuma UF foi cadastrado.">
+							
+						<f:facet name="header">Selecione a UF :</f:facet>
+						<p:column selectionMode="single"
+							style="width:16px;text-align:center" />
+							<p:column headerText="Id">
+								<h:outputText value="#{uf.id}" />
+							</p:column>
+							
+							<p:column headerText="UF">
+								<h:outputText value="#{uf.prefixo}" />
+							</p:column>
+														
+							<p:column headerText="Estado">
+								<h:outputText value="#{uf.nome}" />
+							</p:column>
+
+							<f:facet name="footer">
+								<p:commandButton process="id_tabelaUf"
+									update=":formCliente:id_uf" value="Confirmar"
+									onclick="PF('tabelaUf').hide()"
+									action="#{ClienteMB.mostrarSelecaoUf}"/>
+							</f:facet>
+					</p:dataTable>
+				</p:dialog>	
+		
+				<p:dialog header="Lista de Clientes" widgetVar="tabelaIndicacao" modal="true" width="800">					
+					<p:dataTable id="id_tabelaIndicacao" var="indicacao"
+						value="#{ClienteMB.listaBean}"
+						selection="#{ClienteMB.bean.indicacao}"
+						rowKey="#{indicacao.id}"
+						emptyMessage="Nenhuma Cliente cadastrado.">
+							
+						<f:facet name="header">Selecione uma Cidade :</f:facet>
+						<p:column selectionMode="single"
+							style="width:16px;text-align:center" />
+
+						<p:column headerText="Id">
+							<h:outputText value="#{indicacao.id}" />
+						</p:column>
+							
+						<p:column headerText="Nome">
+							<h:outputText value="#{indicacao.nome}" />
+						</p:column>
+
+						<f:facet name="footer">
+							<p:commandButton process="id_tabelaIndicacao"
+								update=":formCliente:id_indicacao" value="Confirmar"
+								onclick="PF('tabelaIndicacao').hide()"
+								action="#{ClienteMB.mostrarSelecaoIndicacao}"/>
+						</f:facet>
+					</p:dataTable>
+				</p:dialog>	
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:decorate>

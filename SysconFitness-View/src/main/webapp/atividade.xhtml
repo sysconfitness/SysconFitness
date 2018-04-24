@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head></h:head>
+<h:body>
+	<ui:composition template="template/template.xhtml">
+		<ui:define name="content">
+			<h:form id="formAtividade">
+				<p:panel header="Cadastro de Atividades da Academia">
+					<p:growl id="growl" showDetail="true" sticky="false" life="5000" />
+					
+					<p:panelGrid columns="2">
+						<p:outputLabel value="Nome : " />
+						<p:inputText value="#{AtividadeMB.bean.descricao}" />
+					</p:panelGrid>
+					
+					<p:panelGrid columns="4">
+						<p:commandButton value="Salvar" action="#{AtividadeMB.cadastrar}" update="formAtividade" />
+						<p:commandButton value="Cancelar" action="#{AtividadeMB.cancelar}" update="formAtividade" />
+						<p:commandButton value="Excluir" action="#{AtividadeMB.excluir}" update="formAtividade" />
+						<p:commandButton value="Voltar" action="/index.jsp"/>	
+					</p:panelGrid>
+
+					<p:dataTable var="v" value="#{AtividadeMB.listaBean}" selectionMode="single" selection="#{AtividadeMB.alterarBean}" rowKey="#{v.id}">
+						<p:ajax event="rowSelect"	listener="#{AtividadeMB.preparaUpdate}"	update="formAtividade" />
+						<p:column headerText="ID">#{v.id}</p:column>
+						<p:column headerText="Descrição da Atividade">#{v.descricao}</p:column>
+					</p:dataTable>
+				</p:panel>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>
