@@ -43,7 +43,7 @@ public class AnatomiaMB extends SpringBeanAutowiringSupport {
 	public void cadastrar() {
 		this.bean.setDataColeta(this.hoje);
 		this.controle.insert(this.bean);
-		//*this.init();
+		this.init();
 	}
 	
 	public void cancelar(){
