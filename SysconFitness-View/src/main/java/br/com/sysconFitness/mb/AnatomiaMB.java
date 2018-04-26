@@ -14,7 +14,6 @@ import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 import br.com.sysconFitness.controle.esp.AnatomiaBCI;
 import br.com.sysconFitness.model.Anatomia;
-import br.com.sysconFitness.model.Cliente;
 
 @ManagedBean(name = "AnatomiaMB")
 @ViewScoped
@@ -24,9 +23,7 @@ public class AnatomiaMB extends SpringBeanAutowiringSupport {
 	private Anatomia alterarBean;
 	private List<Anatomia> listaBean;
 	private List<Anatomia> listaBeanPorCliente;
-	private Cliente cliente;
-
-
+	private Integer cliente_id=0;
 	private Date hoje = new Date();
 	
 	//teste de commite
@@ -40,19 +37,13 @@ public class AnatomiaMB extends SpringBeanAutowiringSupport {
 		this.bean = new Anatomia();	
 		this.listaBean = controle.select();
 		this.lableCliente = "Selecione ";
-	}
-	
-	public void init2(){
-		this.cliente = bean.getCliente();
-		this.bean = new Anatomia();
-		this.bean.setCliente(cliente);
-		mostrarSelecaoCliente();
+		
 	}
 	
 	public void cadastrar() {
 		this.bean.setDataColeta(this.hoje);
 		this.controle.insert(this.bean);
-		this.init2();
+		this.init();
 	}
 	
 	public void cancelar(){
@@ -66,8 +57,7 @@ public class AnatomiaMB extends SpringBeanAutowiringSupport {
 	}
 	
 	public void excluir(){
-		this.controle.delete(this.bean);
-		this.init2();
+		this.init();
 		FacesContext context = 
 				FacesContext.getCurrentInstance();
         context.addMessage(null,
@@ -85,13 +75,6 @@ public class AnatomiaMB extends SpringBeanAutowiringSupport {
 	}
 	
 	//	Metodos Gets e Sets	
-	public Cliente getCliente() {
-		return cliente;
-	}
-
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
-	}
 	public Anatomia getBean() {
 		return bean;
 	}
@@ -138,5 +121,13 @@ public class AnatomiaMB extends SpringBeanAutowiringSupport {
 
 	public void setListaBeanPorCliente(List<Anatomia> listaBeanPorCliente) {
 		this.listaBeanPorCliente = listaBeanPorCliente;
+	}
+
+	public Integer getCliente_id() {
+		return cliente_id;
+	}
+
+	public void setCliente_id(Integer cliente_id) {
+		this.cliente_id = cliente_id;
 	}
 }

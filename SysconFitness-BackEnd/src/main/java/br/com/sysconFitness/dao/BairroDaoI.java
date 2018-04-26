@@ -6,5 +6,4 @@ import br.com.sysconFitness.model.Bairro;
 
 public interface BairroDaoI extends JpaRepository<Bairro, Long> {
 
-	public Bairro findById(Integer id);
 }
