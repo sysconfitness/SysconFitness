@@ -1,5 +1,5 @@
 package br.com.sysconFitness.mb;
-
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -8,11 +8,14 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
+import br.com.sysconFitness.controle.esp.BairroBCI;
 import br.com.sysconFitness.controle.esp.ClienteBCI;
+import br.com.sysconFitness.model.Bairro;
 import br.com.sysconFitness.model.Cliente;
 
 @ManagedBean(name = "ClienteMB")
@@ -22,6 +25,11 @@ public class ClienteMB extends SpringBeanAutowiringSupport {
 	private Cliente bean;
 	private Cliente alterarBean;
 	private List<Cliente> listaBean;
+	
+	private List<SelectItem> bairroSelect;
+	private Bairro bairroSelecionada ;
+	//teste
+	private List<Bairro> lstBairro;
 	
 	private String lableIndicacao;
 	private String lableBairro;
@@ -33,11 +41,14 @@ public class ClienteMB extends SpringBeanAutowiringSupport {
 	
 	@Autowired
 	private ClienteBCI controle;
+	@Autowired
+	private BairroBCI ctrBairro;
 	
 	@PostConstruct
 	public void init() {
 		this.bean = new Cliente();	
 		this.listaBean = controle.select();
+		this.lstBairro = ctrBairro.select();
 		this.lableIndicacao = "Selecione";
 		this.lableBairro = "Selecione ";
 		this.lableCidade = "Selecione ";
@@ -46,8 +57,10 @@ public class ClienteMB extends SpringBeanAutowiringSupport {
 		this.lableUsuario= "Selecione";
 	}
 	
+	
 	public void cadastrar() {
 		this.bean.setDataCadastro(hoje);
+		this.bean.setBairro(bairroSelecionada);
 		this.controle.insert(this.bean);
 		this.init();
 	}
@@ -73,31 +86,41 @@ public class ClienteMB extends SpringBeanAutowiringSupport {
 	}
 	
 	public void preparaUpdate(){
-		this.bean = this.alterarBean;	
+		init();
+		this.bean = this.alterarBean;
+		this.alterarBean = new Cliente();
+		mostrarSelecaoBairro();
 	}
+	
+	//Mostrar Label na tela
 
 	public void mostrarSelecaoIndicacao() {
-		this.lableIndicacao =this.bean.getIndicacao().getNome();
+		this.lableIndicacao = this.bean.getIndicacao().getNome();
 	}
 	
 	public void mostrarSelecaoBairro() {
-		this.lableBairro =this.bean.getBairro().getNome();
+		
+			if(this.bean.getBairro().getNome() != null) {
+			this.lableBairro = this.bean.getBairro().getNome();
+			}else {
+				this.lableBairro = "OK";
+			}
 	}
 	
 	public void mostrarSelecaoCidade() {
-		this.lableCidade =this.bean.getCidade().getNome();
+		this.lableCidade = this.bean.getCidade().getNome();
 	}
 	
 	public void mostrarSelecaoUf() {
-		this.lableUf =this.bean.getUf().getPrefixo();
+		this.lableUf =  this.bean.getUf().getPrefixo();
 	}
 	
 	public void mostrarSelecaoPlano() {
-		this.lablePlano =this.bean.getPlano().getNome();
+		this.lablePlano = this.bean.getPlano().getNome();
 	}
 	
 	public void mostrarSelecaoUsuario() {
-		this.lableUsuario =this.bean.getUsuario().getLogin();
+		this.lableUsuario = this.bean.getUsuario().getLogin();
 	}
 	
 //	Metodos Gets e Sets	
@@ -180,4 +203,46 @@ public class ClienteMB extends SpringBeanAutowiringSupport {
 	public void setHoje(Date hoje) {
 		this.hoje = hoje;
 	}
+
+	public List<SelectItem> getBairroSelect() {
+		return bairroSelect;
+	}
+
+	public void setBairroSelect(List<SelectItem> bairroSelect) {
+		this.bairroSelect = bairroSelect;
+	}
+
+	public Bairro getBairroSelecionada() {
+		if(this.bairroSelect == null) {
+			
+			this.bairroSelect = new ArrayList<SelectItem>();
+			
+	List<Bairro> lstBairro = ctrBairro.select();
+			if(lstBairro != null && !lstBairro.isEmpty()) {
+				SelectItem item;
+				
+				for(Bairro bairroLista : lstBairro) {
+					item = new SelectItem(bairroLista,bairroLista.getNome());
+					this.bairroSelect.add(item);
+				}
+			}
+		}
+		
+		return bairroSelecionada;
+	}
+
+	public void setBairroSelecionada(Bairro bairroSelecionada) {
+		this.bairroSelecionada = bairroSelecionada;
+	}
+
+
+	public List<Bairro> getLstBairro() {
+		return lstBairro;
+	}
+
+
+	public void setLstBairro(List<Bairro> lstBairro) {
+		this.lstBairro = lstBairro;
+	}
+
 }
