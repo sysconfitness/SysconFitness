@@ -34,4 +34,10 @@ public class BairroBC implements BairroBCI {
 
 		return dao.findAll();
 	}
+
+	@Override
+	public Bairro buscaPeloId(Integer id) {
+		
+		return dao.findById(id);
+	}
 }

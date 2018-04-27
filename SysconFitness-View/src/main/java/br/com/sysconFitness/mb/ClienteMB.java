@@ -12,7 +12,9 @@ import javax.faces.context.FacesContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
+import br.com.sysconFitness.controle.esp.BairroBCI;
 import br.com.sysconFitness.controle.esp.ClienteBCI;
+import br.com.sysconFitness.model.Bairro;
 import br.com.sysconFitness.model.Cliente;
 
 @ManagedBean(name = "ClienteMB")
@@ -22,6 +24,7 @@ public class ClienteMB extends SpringBeanAutowiringSupport {
 	private Cliente bean;
 	private Cliente alterarBean;
 	private List<Cliente> listaBean;
+	private List<Bairro> listarBairro;
 	
 	private String lableIndicacao;
 	private String lableBairro;
@@ -34,10 +37,15 @@ public class ClienteMB extends SpringBeanAutowiringSupport {
 	@Autowired
 	private ClienteBCI controle;
 	
+	@Autowired
+	private BairroBCI controleBairro;
+	
 	@PostConstruct
 	public void init() {
 		this.bean = new Cliente();	
 		this.listaBean = controle.select();
+		this.listarBairro = controleBairro.select();
+		
 		this.lableIndicacao = "Selecione";
 		this.lableBairro = "Selecione ";
 		this.lableCidade = "Selecione ";
@@ -179,5 +187,13 @@ public class ClienteMB extends SpringBeanAutowiringSupport {
 
 	public void setHoje(Date hoje) {
 		this.hoje = hoje;
+	}
+
+	public List<Bairro> getListarBairro() {
+		return listarBairro;
+	}
+
+	public void setListarBairro(List<Bairro> listarBairro) {
+		this.listarBairro = listarBairro;
 	}
 }
