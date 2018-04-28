@@ -22,7 +22,6 @@ public class ClienteMB extends SpringBeanAutowiringSupport {
 	private Cliente alterarBean;
 	private List<Cliente> listaBean;
 	private String lableIndicacao;
-	private String lableBairro;
 	private String lableCidade;
 	private String lableUf;
 	private String lablePlano;
@@ -48,7 +47,6 @@ public class ClienteMB extends SpringBeanAutowiringSupport {
 		
 		
 		this.lableIndicacao = "Selecione";
-		this.lableBairro = "Selecione ";
 		this.lableCidade = "Selecione ";
 		this.lableUf = "Selecione";
 		this.lablePlano  = "Selecione";
@@ -89,10 +87,6 @@ public class ClienteMB extends SpringBeanAutowiringSupport {
 		this.lableIndicacao =this.bean.getIndicacao().getNome();
 	}
 	
-	public void mostrarSelecaoBairro() {
-		this.lableBairro =this.bean.getBairro().getNome();
-	}
-	
 	public void mostrarSelecaoCidade() {
 		this.lableCidade =this.bean.getCidade().getNome();
 	}
@@ -110,14 +104,6 @@ public class ClienteMB extends SpringBeanAutowiringSupport {
 	}
 	
 //	Metodos Gets e Sets	
-	public String getLableBairro() {
-		return lableBairro;
-	}
-
-	public void setLableBairro(String lableBairro) {
-		this.lableBairro = lableBairro;
-	}
-
 	public String getLableIndicacao() {
 		return lableIndicacao;
 	}
