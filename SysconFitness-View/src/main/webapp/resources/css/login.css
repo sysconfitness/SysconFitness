@@ -3,7 +3,7 @@ form#loginForm {
 	padding: 0;
 	margin: 0 auto;
 }
-
+	
 form#loginForm .form-signin-heading, form#loginForm .checkbox {
 	margin-bottom: 1em;
 }
@@ -21,7 +21,7 @@ form#loginForm .form-control {
 	padding: 1em;
 	font-size: 1em;
 }
-
+	
 form#loginForm .form-control:focus {
 	z-index: 10;
 }

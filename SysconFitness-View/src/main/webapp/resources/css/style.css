@@ -3,10 +3,12 @@
 *{ margin:0; padding:0; border:0; }
 
 body {
-	background: url(.../images/imagem_fundo.jpg) top center;
+	background: url(images/imagem_fundo.jpg) top center;
 	background-repeat: no-repeat;
-	background-attachment: fixed;
+	background-attachment: scroll;
 	background-size: cover;
 }
+
+#conteudo { width:960px; height:800px; background:#fff; margin:0 auto;}
 
 <!-- Author Clarismilton Soares de Morais -->
