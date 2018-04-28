@@ -50,11 +50,11 @@
 					<p:commandButton value="#{ClienteMB.lableBairro}" id="id_bairro" type="button" 
 															onclick="PF('tabelaBairro').show();" />
 															
-					<p:outputLabel value="Bairro :" />
-					<h:selectOneMenu value="#{ClienteMB.bean.bairro}">
+					<p:outputLabel value="Bairro :"/>
+					<p:selectOneMenu value="#{ClienteMB.selectBairro}">
 						<f:selectItem itemLabel="Selecione : "/>
-						<f:selectItems value="#{ClienteMB.listaBairro}" />
-					</h:selectOneMenu>
+						<f:selectItems value="#{ClienteMB.listarBairro}" />
+					</p:selectOneMenu>
 					
 					<p:outputLabel value="CEP :" />
 					<p:inputMask id="cep" value="#{ClienteMB.bean.cep}" size="10" mask="99.999-999"/>

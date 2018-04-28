@@ -6,7 +6,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
 
 import br.com.sysconFitness.controle.esp.BairroBCI;
 import br.com.sysconFitness.controle.impl.BairroBC;
@@ -16,13 +16,16 @@ import br.com.sysconFitness.model.Bairro;
 public class BairroConverter  implements Converter, Serializable{
 
 	private static final long serialVersionUID = 1L;
-	@Autowired
-	BairroBCI controle = new BairroBC();
-		
+	
+	
 		@Override
 		public Object getAsObject(FacesContext context, UIComponent component, String value) {
-			if (value != null && value.trim().length() > 0) {
-				return controle.buscaPeloId(Integer.valueOf(value));
+			BairroBCI controle = new BairroBC();	
+			System.out.println(controle.buscaPeloId(1).getNome());
+				
+			if (value != null && value.trim().length() > 0){
+				Integer codigo = Integer.valueOf(value);
+				return controle.buscaPeloId(codigo);
 			}
 			return null;
 		}

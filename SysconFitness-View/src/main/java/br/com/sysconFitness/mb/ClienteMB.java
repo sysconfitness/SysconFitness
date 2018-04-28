@@ -28,8 +28,12 @@ public class ClienteMB extends SpringBeanAutowiringSupport {
 	private String lableUf;
 	private String lablePlano;
 	private String lableUsuario;
-	private List<SelectItem> listaBairro;
 	private Date hoje = new Date();
+	
+	
+	//teste
+	private List<SelectItem> listarBairro;
+	private Bairro selectBairro;
 	
 	@Autowired
 	private ClienteBCI controle;
@@ -52,6 +56,8 @@ public class ClienteMB extends SpringBeanAutowiringSupport {
 	
 	public void cadastrar() {
 		this.bean.setDataCadastro(hoje);
+		this.bean.setBairro((Bairro) selectBairro);
+
 		this.controle.insert(this.bean);
 		this.init();
 	}
@@ -185,19 +191,27 @@ public class ClienteMB extends SpringBeanAutowiringSupport {
 		this.hoje = hoje;
 	}
 
-	public List<SelectItem> getListaBairro() throws Exception {
-		if (listaBairro == null) {
-			 listaBairro = new ArrayList<SelectItem>();
-			List<Bairro> selectBairros = controleBairro.select();
-			if(selectBairros != null && !selectBairros.isEmpty()) {
+	public List<SelectItem> getListarBairro() {
+		if(listarBairro == null) {
+			listarBairro = new ArrayList<SelectItem>();
+			List<Bairro>  listaBairros = controleBairro.select();
+			if (listaBairros != null && !listaBairros.isEmpty()) {
+				
 				SelectItem item;
-				for (Bairro selectBairro : selectBairros) {
-					item = new SelectItem(selectBairro,selectBairro.getNome());
-					listaBairro.add(item);
+				for (Bairro listaBairro : listaBairros) {
+					item = new SelectItem(listaBairro,listaBairro.getNome());
+					listarBairro.add(item);
 				}
 			}
 		}
-		return listaBairro;
+		return listarBairro;
 	}
-		
+
+	public Bairro getSelectBairro() {
+		return selectBairro;
+	}
+
+	public void setSelectBairro(Bairro selectBairro) {
+		this.selectBairro = selectBairro;
+	}		
 }
