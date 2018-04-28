@@ -1,17 +1,16 @@
 package br.com.sysconFitness.mb;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-
+import javax.faces.model.SelectItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
-
 import br.com.sysconFitness.controle.esp.BairroBCI;
 import br.com.sysconFitness.controle.esp.ClienteBCI;
 import br.com.sysconFitness.model.Bairro;
@@ -20,18 +19,16 @@ import br.com.sysconFitness.model.Cliente;
 @ManagedBean(name = "ClienteMB")
 @ViewScoped
 public class ClienteMB extends SpringBeanAutowiringSupport {
-
 	private Cliente bean;
 	private Cliente alterarBean;
 	private List<Cliente> listaBean;
-	private List<Bairro> listarBairro;
-	
 	private String lableIndicacao;
 	private String lableBairro;
 	private String lableCidade;
 	private String lableUf;
 	private String lablePlano;
 	private String lableUsuario;
+	private List<SelectItem> listaBairro;
 	private Date hoje = new Date();
 	
 	@Autowired
@@ -44,8 +41,7 @@ public class ClienteMB extends SpringBeanAutowiringSupport {
 	public void init() {
 		this.bean = new Cliente();	
 		this.listaBean = controle.select();
-		this.listarBairro = controleBairro.select();
-		
+	
 		this.lableIndicacao = "Selecione";
 		this.lableBairro = "Selecione ";
 		this.lableCidade = "Selecione ";
@@ -189,11 +185,19 @@ public class ClienteMB extends SpringBeanAutowiringSupport {
 		this.hoje = hoje;
 	}
 
-	public List<Bairro> getListarBairro() {
-		return listarBairro;
+	public List<SelectItem> getListaBairro() throws Exception {
+		if (listaBairro == null) {
+			 listaBairro = new ArrayList<SelectItem>();
+			List<Bairro> selectBairros = controleBairro.select();
+			if(selectBairros != null && !selectBairros.isEmpty()) {
+				SelectItem item;
+				for (Bairro selectBairro : selectBairros) {
+					item = new SelectItem(selectBairro,selectBairro.getNome());
+					listaBairro.add(item);
+				}
+			}
+		}
+		return listaBairro;
 	}
-
-	public void setListarBairro(List<Bairro> listarBairro) {
-		this.listarBairro = listarBairro;
-	}
+		
 }

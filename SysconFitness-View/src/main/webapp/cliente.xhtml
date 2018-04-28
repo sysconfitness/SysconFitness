@@ -51,18 +51,10 @@
 															onclick="PF('tabelaBairro').show();" />
 															
 					<p:outputLabel value="Bairro :" />
-					<h:selectOneMenu 
-							value="#{ClienteMB.bean.bairro}" 
-							converter="bairroConverter"
-							styleClass="form-control"
-					>
-					<f:selectItems 
-						value="#{ClienteMB.listarBairro}" 
-						var="c" 
-						itemLabel="#{c.nome}" 
-						itemValue="#{c}" 
-					/>
-				</h:selectOneMenu>
+					<h:selectOneMenu value="#{ClienteMB.bean.bairro}">
+						<f:selectItem itemLabel="Selecione : "/>
+						<f:selectItems value="#{ClienteMB.listaBairro}" />
+					</h:selectOneMenu>
 					
 					<p:outputLabel value="CEP :" />
 					<p:inputMask id="cep" value="#{ClienteMB.bean.cep}" size="10" mask="99.999-999"/>
@@ -135,7 +127,6 @@
 					
 				-->		
 					<p:column style="width:20px" headerText="ID">#{v.id}</p:column>
-					<p:column style="width:5px" headerText="ID">#{v.id}</p:column>
 					<p:column style="width:50px" headerText="Nome">#{v.nome}</p:column>
 					<p:column style="width:20px" headerText="CPF">#{v.cpf}</p:column>
 					<p:column style="width:20px" headerText="Nro Celular">#{v.telefone2}</p:column>
