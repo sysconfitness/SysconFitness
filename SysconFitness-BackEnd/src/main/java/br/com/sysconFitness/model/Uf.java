@@ -43,4 +43,8 @@ public class Uf {
 	public void setPrefixo(String prefixo) {
 		this.prefixo = prefixo;
 	}
+	@Override
+	public String toString() {
+	    return String.format("%s[id=%d]", getClass().getSimpleName(), getId());
+	}
 }

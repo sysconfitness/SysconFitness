@@ -26,7 +26,7 @@ public class Salario {
 	private Double valor;
 	
 	/*
-	 * eu acho que não tem necessidade dessa entidade... Salário é um atributo da função.
+	 * eu acho que nï¿½o tem necessidade dessa entidade... Salï¿½rio ï¿½ um atributo da funï¿½ï¿½o.
 	 */
 	
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
@@ -83,5 +83,9 @@ public class Salario {
 
 	public void setFuncao(Funcao funcao) {
 		this.funcao = funcao;
+	}
+	@Override
+	public String toString() {
+	    return String.format("%s[id=%d]", getClass().getSimpleName(), getId());
 	}
 }

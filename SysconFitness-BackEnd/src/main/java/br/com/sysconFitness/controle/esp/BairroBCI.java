@@ -8,7 +8,5 @@ public interface BairroBCI {
 	public void insert(Bairro bean);
 	public void update(Bairro bean);
 	public void delete(Bairro bean);
-	public List<Bairro> select();
-	public Bairro buscaPeloId(Integer id);
-	
+	public List<Bairro> select();	
 }

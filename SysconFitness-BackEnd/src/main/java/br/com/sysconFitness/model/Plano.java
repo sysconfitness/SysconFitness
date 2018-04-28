@@ -93,4 +93,8 @@ public class Plano {
 	public void setListaAtividades(List<Atividade> listaAtividades) {
 		this.listaAtividades = listaAtividades;
 	}	
+	@Override
+	public String toString() {
+	    return String.format("%s[id=%d]", getClass().getSimpleName(), getId());
+	}
 }

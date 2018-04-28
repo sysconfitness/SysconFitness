@@ -60,4 +60,8 @@ public class Preco {
 	public void setDt_fim(Date dt_fim) {
 		this.dt_fim = dt_fim;
 	}
+	@Override
+	public String toString() {
+	    return String.format("%s[id=%d]", getClass().getSimpleName(), getId());
+	}
 }

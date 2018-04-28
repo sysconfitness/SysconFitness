@@ -77,4 +77,8 @@ public class Role implements GrantedAuthority {
 	public String getAuthority() {
 		return this.nomeRole;
 	}
+	@Override
+	public String toString() {
+	    return String.format("%s[id=%d]", getClass().getSimpleName(), getId());
+	}
 }

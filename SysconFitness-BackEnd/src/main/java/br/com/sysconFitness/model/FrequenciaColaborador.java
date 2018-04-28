@@ -61,4 +61,8 @@ public class FrequenciaColaborador {
 	public void setColaborador(Colaborador colaborador) {
 		this.colaborador = colaborador;
 	}
+	@Override
+	public String toString() {
+	    return String.format("%s[id=%d]", getClass().getSimpleName(), getId());
+	}
 }

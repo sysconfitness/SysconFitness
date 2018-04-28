@@ -53,4 +53,8 @@ public class FrequenciaCliente {
 	public void setSaida(Date saida) {
 		this.saida = saida;
 	}	
+	@Override
+	public String toString() {
+	    return String.format("%s[id=%d]", getClass().getSimpleName(), getId());
+	}
 }

@@ -75,4 +75,8 @@ public class Compra {
 	public void setDataCompra(Date dataCompra) {
 		this.dataCompra = dataCompra;
 	}
+	@Override
+	public String toString() {
+	    return String.format("%s[id=%d]", getClass().getSimpleName(), getId());
+	}
 }

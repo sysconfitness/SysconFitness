@@ -131,5 +131,10 @@ public class Anatomia {
 
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
-	}	
+	}
+	
+	@Override
+	public String toString() {
+	    return String.format("%s[id=%d]", getClass().getSimpleName(), getId());
+	}
 }

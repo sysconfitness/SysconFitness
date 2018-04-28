@@ -75,4 +75,8 @@ public class AuxVendaProduto {
 	public void setDesconto(Double desconto) {
 		this.desconto = desconto;
 	}
+	@Override
+	public String toString() {
+	    return String.format("%s[id=%d]", getClass().getSimpleName(), getId());
+	}
 }

@@ -61,4 +61,8 @@ public class Produto {
 	public void setUnidade(String unidade) {
 		this.unidade = unidade;
 	}
+	@Override
+	public String toString() {
+	    return String.format("%s[id=%d]", getClass().getSimpleName(), getId());
+	}
 }

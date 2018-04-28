@@ -44,4 +44,8 @@ public class HistoricoCliente {
 	public void setData(Calendar data) {
 		this.data = data;
 	}
+	@Override
+	public String toString() {
+	    return String.format("%s[id=%d]", getClass().getSimpleName(), getId());
+	}
 }

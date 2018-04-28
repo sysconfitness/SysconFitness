@@ -44,8 +44,13 @@
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-taglibs</artifactId>
 		</dependency>
-
-	
+		<!-- Convertes  -->
+			<!-- OmniFaces -->
+		<dependency>
+			<groupId>org.omnifaces</groupId>
+			<artifactId>omnifaces</artifactId>
+			<version>1.11</version>
+		</dependency>
 		<!-- ferramenta de relatórios -->
 		<dependency>
 			<groupId>net.sf.jasperreports</groupId>

@@ -68,4 +68,8 @@ public class AuxCompraProduto {
 	public void setValor(Double valor) {
 		this.valor = valor;
 	}
+	@Override
+	public String toString() {
+	    return String.format("%s[id=%d]", getClass().getSimpleName(), getId());
+	}
 }

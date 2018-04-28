@@ -243,4 +243,8 @@ public class Cliente {
 	public void setListaMedidas(List<Anatomia> listaMedidas) {
 		this.listaMedidas = listaMedidas;
 	}
+	@Override
+	public String toString() {
+	    return String.format("%s[id=%d]", getClass().getSimpleName(), getId());
+	}
 }

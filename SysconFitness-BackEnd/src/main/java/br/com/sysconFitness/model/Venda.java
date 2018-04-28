@@ -76,4 +76,8 @@ public class Venda {
 	public void setDtVenda(Date dtVenda) {
 		this.dtVenda = dtVenda;
 	}
+	@Override
+	public String toString() {
+	    return String.format("%s[id=%d]", getClass().getSimpleName(), getId());
+	}
 }

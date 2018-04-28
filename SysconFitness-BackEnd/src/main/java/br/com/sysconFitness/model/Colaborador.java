@@ -154,4 +154,8 @@ public class Colaborador {
 	public void setFuncao(Funcao funcao) {
 		this.funcao = funcao;
 	}
+	@Override
+	public String toString() {
+	    return String.format("%s[id=%d]", getClass().getSimpleName(), getId());
+	}
 }

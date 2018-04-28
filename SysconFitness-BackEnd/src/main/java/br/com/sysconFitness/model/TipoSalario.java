@@ -4,7 +4,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -19,7 +18,7 @@ public class TipoSalario {
 	private String descricao;
 	
 	/*
-	 * eu acho que não tem necessidade dessa entidade... Salário é um atributo da função - e pra quê esse "tipo de salário".
+	 * eu acho que nï¿½o tem necessidade dessa entidade... Salï¿½rio ï¿½ um atributo da funï¿½ï¿½o - e pra quï¿½ esse "tipo de salï¿½rio".
 	 */
 	
 	//Metodos Geters e Seters
@@ -37,5 +36,9 @@ public class TipoSalario {
 	
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+	@Override
+	public String toString() {
+	    return String.format("%s[id=%d]", getClass().getSimpleName(), getId());
 	}
 }

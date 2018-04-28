@@ -45,15 +45,16 @@
 					
 					<p:outputLabel value="Endereço :" />
 					<p:inputText value="#{ClienteMB.bean.endereco}" />
-					
-					<p:outputLabel value="Bairro :" />
-					<p:commandButton value="#{ClienteMB.lableBairro}" id="id_bairro" type="button" 
-															onclick="PF('tabelaBairro').show();" />
-															
+									
 					<p:outputLabel value="Bairro :"/>
-					<p:selectOneMenu value="#{ClienteMB.selectBairro}">
-						<f:selectItem itemLabel="Selecione : "/>
-						<f:selectItems value="#{ClienteMB.listarBairro}" />
+					<p:selectOneMenu value="#{ClienteMB.bean.bairro}" filter="true" converter="omnifaces.SelectItemsConverter">
+						<f:selectItem noSelectionOption="true" itemLabel="Selecione : "/>
+						<f:selectItems value="#{ClienteMB.listarBairro}"
+										var="bairro"
+										itemValue="#{bairro}"
+										itemLabel="#{bairro.nome}"
+						
+						 />
 					</p:selectOneMenu>
 					
 					<p:outputLabel value="CEP :" />
@@ -134,44 +135,7 @@
 				</p:dataTable>	
 				
 				<!-- Caixas de Dialog -->
-					
-				<p:dialog header="Lista de Bairros" widgetVar="tabelaBairro" modal="true" width="800">			
-					<h:panelGrid columns="2" layout="grid">
-						<p:outputLabel value="Nome :" />		
-						<p:inputText value="#{BairroMB.bean.nome}"/>
-					</h:panelGrid>	
-							
-					<h:panelGrid columns="4" layout="grid">
-							<p:commandButton value="Savar" action="#{BairroMB.cadastrar}" update="id_tabelaBairro" />
-							<p:commandButton value="Cancelar" action="#{BairroMB.cancelar}" update="id_tabelaBairro" />
-					</h:panelGrid>
-
-					<p:dataTable id="id_tabelaBairro" var="bairro"
-						value="#{BairroMB.listaBean}"
-						selection="#{ClienteMB.bean.bairro}"
-						rowKey="#{bairro.id}"
-						emptyMessage="Nenhuma Bairro foi cadastrado.">
-							
-						<f:facet name="header">Selecione um Bairro :</f:facet>
-						<p:column selectionMode="single"
-							style="width:16px;text-align:center" />
-
-						<p:column headerText="Id">
-							<h:outputText value="#{bairro.id}" />
-						</p:column>
-						<p:column headerText="Nome">
-							<h:outputText value="#{bairro.nome}" />
-						</p:column>
-
-						<f:facet name="footer">
-							<p:commandButton process="id_tabelaBairro"
-								update=":formCliente:id_bairro" value="Confirmar"
-								onclick="PF('tabelaBairro').hide()"
-								action="#{ClienteMB.mostrarSelecaoBairro}" />
-						</f:facet>
-					</p:dataTable>
-				</p:dialog>
-					
+										
 				<p:dialog header="Cidades" widgetVar="tabelaCidade" modal="true" width="800">			
 					<h:panelGrid columns="2" layout="grid">
 						<p:outputLabel value="Nome :" />		

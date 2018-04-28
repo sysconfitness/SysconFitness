@@ -75,4 +75,8 @@ public class Estoque {
 	public void setUltimaCompra(Date ultimaCompra) {
 		this.ultimaCompra = ultimaCompra;
 	}
+	@Override
+	public String toString() {
+	    return String.format("%s[id=%d]", getClass().getSimpleName(), getId());
+	}
 }

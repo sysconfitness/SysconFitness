@@ -33,4 +33,8 @@ public class Unidade {
 	public void setDescricao(String descricao) {
 		Descricao = descricao;
 	}
+	@Override
+	public String toString() {
+	    return String.format("%s[id=%d]", getClass().getSimpleName(), getId());
+	}
 }

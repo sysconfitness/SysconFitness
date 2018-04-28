@@ -54,4 +54,8 @@ public class Pagina {
 	public Integer getId() {
 		return id;
 	}
+	@Override
+	public String toString() {
+	    return String.format("%s[id=%d]", getClass().getSimpleName(), getId());
+	}
 }

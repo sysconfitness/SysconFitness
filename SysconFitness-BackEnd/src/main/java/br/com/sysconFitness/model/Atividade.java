@@ -34,4 +34,8 @@ public class Atividade {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
+	@Override
+	public String toString() {
+	    return String.format("%s[id=%d]", getClass().getSimpleName(), getId());
+	}
 }
