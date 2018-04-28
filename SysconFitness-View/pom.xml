@@ -51,6 +51,7 @@
 			<artifactId>omnifaces</artifactId>
 			<version>1.11</version>
 		</dependency>
+		
 		<!-- ferramenta de relatórios -->
 		<dependency>
 			<groupId>net.sf.jasperreports</groupId>
