@@ -32,6 +32,12 @@ public class BairroBC implements BairroBCI {
 	@Override
 	public List<Bairro> select() {
 
-		return dao.findAll();
+		return (List<Bairro>) dao.findAll();
+	}
+
+	@Override
+	public Bairro buscaPeloId(Integer id) {
+		
+		return dao.findById(id);
 	}
 }
