@@ -238,7 +238,8 @@
 						</p:column>
 
 						<f:facet name="footer">
-							<p:commandButton process="id_tabelaIndicacao"
+							<p:commandButton 
+								process="id_tabelaIndicacao"
 								update=":formCliente:id_indicacao" value="Confirmar"
 								onclick="PF('tabelaIndicacao').hide()"
 								action="#{ClienteMB.mostrarSelecaoIndicacao}"/>

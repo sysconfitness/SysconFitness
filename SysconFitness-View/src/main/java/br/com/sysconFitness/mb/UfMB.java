@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 import br.com.sysconFitness.controle.esp.UfBCI;
+import br.com.sysconFitness.model.Bairro;
+import br.com.sysconFitness.model.Cidade;
 import br.com.sysconFitness.model.Uf;
 
 @ManagedBean(name = "UfMB")
@@ -21,6 +23,8 @@ public class UfMB extends SpringBeanAutowiringSupport {
 	private Uf bean;
 	private Uf alterarBean;
 	private List<Uf> listaBean;
+	private List<Cidade> listaCidades;
+	private List<Bairro> listaBairros;
 	
 	@Autowired
 	private UfBCI controle;
@@ -52,7 +56,7 @@ public class UfMB extends SpringBeanAutowiringSupport {
 				FacesContext.getCurrentInstance();
         context.addMessage(null,
         		new FacesMessage("SysconFitness - Aviso",  
-        				"Registro Excluído!!!" ) );
+        				"Registro Excluï¿½do!!!" ) );
 	}
 	
 	public void preparaUpdate(){
@@ -82,5 +86,21 @@ public class UfMB extends SpringBeanAutowiringSupport {
 
 	public void setlistaBean(List<Uf> listaBean) {
 		this.listaBean = listaBean;
+	}
+
+	public List<Cidade> getListaCidades() {
+		return listaCidades;
+	}
+
+	public void setListaCidades(List<Cidade> listaCidades) {
+		this.listaCidades = listaCidades;
+	}
+
+	public List<Bairro> getListaBairros() {
+		return listaBairros;
+	}
+
+	public void setListaBairros(List<Bairro> listaBairros) {
+		this.listaBairros = listaBairros;
 	}
 }

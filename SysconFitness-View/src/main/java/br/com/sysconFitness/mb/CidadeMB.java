@@ -7,11 +7,14 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 import br.com.sysconFitness.controle.esp.CidadeBCI;
+import br.com.sysconFitness.controle.esp.UfBCI;
 import br.com.sysconFitness.model.Cidade;
+import br.com.sysconFitness.model.Uf;
 
 @ManagedBean(name = "CidadeMB")
 @ViewScoped
@@ -19,15 +22,19 @@ public class CidadeMB extends SpringBeanAutowiringSupport {
 
 	private Cidade bean;
 	private Cidade alterarBean;
-	private List<Cidade> ListaBean;
+	private List<Cidade> listaBean;
+	private List<Uf> listaUfs; 
 	
 	@Autowired
 	private CidadeBCI controle;
+	@Autowired
+	private UfBCI controleUf;
 	
 	@PostConstruct
 	public void init() {
 		this.bean = new Cidade();	
-		this.ListaBean = controle.select();
+		this.listaBean = controle.select();
+		this.listaUfs = controleUf.select();
 	}
 	
 	public void cadastrar() {
@@ -51,14 +58,13 @@ public class CidadeMB extends SpringBeanAutowiringSupport {
 				FacesContext.getCurrentInstance();
         context.addMessage(null,
         		new FacesMessage("SysconFitness - Aviso",  
-        				"Registro Excluído!!!" ) );
+        				"Registro Excluï¿½do!!!" ) );
 
 	}
 	
 	public void preparaUpdate(){
 		this.bean = this.alterarBean;	
 	}
-
 	//Metodos Geters e Seters
 	public Cidade getBean() {
 		return bean;
@@ -77,10 +83,21 @@ public class CidadeMB extends SpringBeanAutowiringSupport {
 	}
 
 	public List<Cidade> getListaBean() {
-		return ListaBean;
+		return listaBean;
 	}
 
 	public void setListaBean(List<Cidade> listaBean) {
-		ListaBean = listaBean;
-	}	
+		this.listaBean = listaBean;
+	}
+
+	public List<Uf> getListaUfs() {
+		return listaUfs;
+	}
+
+	public void setListaUfs(List<Uf> listaUfs) {
+		this.listaUfs = listaUfs;
+	}
+
+
+	
 }

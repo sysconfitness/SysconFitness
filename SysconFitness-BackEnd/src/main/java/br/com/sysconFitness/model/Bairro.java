@@ -1,10 +1,13 @@
 package br.com.sysconFitness.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -18,6 +21,12 @@ public class Bairro {
 	private Integer id;
 	private String nome;
 	
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
+	@JoinColumn(name = "fk_Cidade")
+	private Cidade cidade;
+	
+
+
 	//Metodos Geters e Seters
 	public Integer getId() {
 		return id;
@@ -34,7 +43,17 @@ public class Bairro {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+	
+	
+	public Cidade getCidade() {
+		return cidade;
+	}
 
+	public void setCidade(Cidade cidade) {
+		this.cidade = cidade;
+	}
+	
+//	Outras configuração de tela
 	@Override
 	public String toString() {
 	    return String.format("%s[id=%d]", getClass().getSimpleName(), getId());

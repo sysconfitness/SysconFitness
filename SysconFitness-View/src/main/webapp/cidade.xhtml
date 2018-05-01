@@ -17,6 +17,17 @@
 					<p:panelGrid columns="2">
 						<p:outputLabel value="Nome : " />
 						<p:inputText value="#{CidadeMB.bean.nome}" />
+						
+						<p:outputLabel value="UF : " />
+						<p:selectOneMenu value="#{CidadeMB.bean.uf}" filter="true" converter="omnifaces.SelectItemsConverter">
+							<f:selectItem noSelectionOption="true" itemLabel="Selecione : "/>
+							<f:selectItems value="#{CidadeMB.listaUfs}"
+										var="uf"
+										itemValue="#{uf}"
+										itemLabel="#{uf.nome} - #{uf.prefixo}"
+						
+						 />
+					</p:selectOneMenu>
 					</p:panelGrid>
 					
 					<p:panelGrid columns="4">
@@ -30,6 +41,7 @@
 						<p:ajax event="rowSelect"	listener="#{CidadeMB.preparaUpdate}"	update="formCidade" />
 						<p:column headerText="ID">#{v.id}</p:column>
 						<p:column headerText="Nome">#{v.nome}</p:column>
+						<p:column headerText="Uf">#{v.uf.nome} - #{v.uf.prefixo} </p:column>
 					</p:dataTable>
 				</p:panel>
 			</h:form>

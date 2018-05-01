@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head></h:head>
+
+<h:body>
+	<ui:composition template="template/template.xhtml">
+		<ui:define name="content">
+			<h:form id="formBairro">
+				<p:panel header="Cadastro de Bairros">
+					<p:growl id="growl" showDetail="true" sticky="false" life="5000" />
+
+					<p:panelGrid columns="2">
+						<p:outputLabel value="Nome : " />
+						<p:inputText value="#{BairroMB.bean.nome}" />
+
+						<p:outputLabel value="Cidade :" />
+						<h:panelGroup >
+							<p:selectOneMenu value="#{BairroMB.bean.cidade}" filter="true"
+								converter="omnifaces.SelectItemsConverter" id="id_listaCidades">
+								<f:selectItem noSelectionOption="true" itemLabel="Selecione : " />
+								<f:selectItems value="#{BairroMB.listaCidades}" var="cidade"
+									itemValue="#{cidade}" itemLabel="#{cidade.nome}" />
+							</p:selectOneMenu>
+							<p:commandButton id="bt_cidade" type="button"
+								onclick="PF('tabelaCidades').show();" icon="ui-icon-extlink" />
+						</h:panelGroup>
+
+					</p:panelGrid>
+
+					<p:panelGrid columns="4">
+						<p:commandButton value="Salvar" action="#{BairroMB.cadastrar}"
+							update="formBairro" />
+						<p:commandButton value="Cancelar" action="#{BairroMB.cancelar}"
+							update="formBairro" />
+						<p:commandButton value="Excluir" action="#{BairroMB.excluir}"
+							update="formBairro" />
+						<p:commandButton value="Voltar" action="/index.jsp" />
+					</p:panelGrid>
+
+					<p:dataTable var="v" value="#{BairroMB.listaBean}"
+						selectionMode="single" selection="#{BairroMB.alterarBean}"
+						rowKey="#{v.id}">
+						<p:ajax event="rowSelect" listener="#{BairroMB.preparaUpdate}"
+							update="formBairro" />
+						<p:column style="width:10px" headerText="ID">#{v.id}</p:column>
+						<p:column style="width:50px" headerText="Nome">#{v.nome}</p:column>
+						<p:column style="width:50px" headerText="Nome">#{v.cidade.nome}</p:column>
+					</p:dataTable>
+				</p:panel>
+
+
+
+
+
+				<!--Iniciando as caixas de Dialos  -->
+				<p:dialog header="Cidades" widgetVar="tabelaCidades"
+					modal="true" width="800">
+					<h:form id="formCidade">
+						<p:panel header="Cadastro de Cidades">
+							<p:growl id="growl" showDetail="true" sticky="false" life="5000" />
+							<p:panelGrid columns="2">
+								<p:outputLabel value="Nome : " />
+								<p:inputText value="#{CidadeMB.bean.nome}" />
+
+								<p:outputLabel value="UF : " />
+								<h:panelGroup>
+								<p:selectOneMenu value="#{CidadeMB.bean.uf}" filter="true"
+									converter="omnifaces.SelectItemsConverter" id="id_listaUf">
+									<f:selectItem noSelectionOption="true" itemLabel="Selecione : " />
+									<f:selectItems value="#{CidadeMB.listaUfs}" var="uf"
+										itemValue="#{uf}" itemLabel="#{uf.nome} - #{uf.prefixo}" />
+								</p:selectOneMenu>
+								<p:commandButton id="bt_Uf" type="button"
+								onclick="PF('tabelaUf').show();" icon="ui-icon-extlink" />
+								</h:panelGroup>
+							</p:panelGrid>
+
+							<p:panelGrid columns="4">
+								<p:commandButton value="Salvar" action="#{CidadeMB.cadastrar}"
+									update="formCidade" />
+								<p:commandButton value="Cancelar" action="#{CidadeMB.cancelar}"
+									update="formCidade" />
+							</p:panelGrid>
+
+							<p:dataTable var="v" value="#{CidadeMB.listaBean}" id="id_tabelaCidade">
+								emptyMessage="Nenhuma Cidade cadastrada.">
+								<p:column headerText="ID">#{v.id}</p:column>
+								<p:column headerText="Nome">#{v.nome}</p:column>
+								<p:column headerText="Uf">#{v.uf.nome} - #{v.uf.prefixo} </p:column>
+							</p:dataTable>
+						</p:panel>
+					</h:form>
+					<f:facet name="footer">
+						<p:commandButton update=":formBairro:id_listaCidades"
+							value="Confirmar" onclick="PF('tabelaCidades').hide()"/>
+					</f:facet>
+				</p:dialog>
+				
+				<p:dialog header="Unidade Federativa - UF" widgetVar="tabelaUf" modal="true" width="800">	
+				<h:form id="formUf">	
+					<h:panelGrid columns="2" layout="grid">
+						<p:outputLabel value="UF :" />		
+						<p:inputText value="#{UfMB.bean.prefixo}"/>
+						<p:outputLabel value="Estado :" />		
+						<p:inputText value="#{UfMB.bean.nome}"/>			
+					</h:panelGrid>	
+							
+					<h:panelGrid columns="4" layout="grid">
+						<p:commandButton value="Savar" action="#{UfMB.cadastrar}" update="formUf" />
+						<p:commandButton value="Cancelar" action="#{UfMB.cancelar}" update="formUf" />
+					</h:panelGrid>
+
+					<p:dataTable id="id_tabelaUf" var="uf"	value="#{UfMB.listaBean}"
+									emptyMessage="Nenhuma UF foi cadastrado.">
+							
+						<f:facet name="header">Selecione a UF :</f:facet>
+							<p:column headerText="Id">
+								<h:outputText value="#{uf.id}" />
+							</p:column>
+							
+							<p:column headerText="UF">
+								<h:outputText value="#{uf.prefixo}" />
+							</p:column>
+														
+							<p:column headerText="Estado">
+								<h:outputText value="#{uf.nome}" />
+							</p:column>
+
+							<f:facet name="footer">
+								<p:commandButton process="id_tabelaUf"
+									update=":formBairro:formCidade:id_listaUf" value="Confirmar"
+									onclick="PF('tabelaUf').hide()"
+									/>
+							</f:facet>
+					</p:dataTable>
+				</h:form>	
+				</p:dialog>	
+				
+				
+				
+
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>
